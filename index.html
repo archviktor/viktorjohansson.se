@@ -1,12 +1,40 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Viktor Johansson</title>
-  </head>
-  <body>
-    <h1>Viktor Johansson</h1>
-    <p>Välkommen till min hemsida. Den är ganska liten.</p>
-  </body>
+<head>
+  <meta charset="utf-8">
+  <title>Name Check</title>
+</head>
+<body>
+  <label>
+    First name:
+    <input id="firstName" type="text">
+  </label>
+
+  <br><br>
+
+  <label>
+    Last name:
+    <input id="lastName" type="text">
+  </label>
+
+  <br><br>
+
+  <button onclick="runCheck()">Run</button>
+
+  <p id="result"></p>
+
+  <script>
+    function runCheck() {
+      const firstName = document.getElementById("firstName").value.trim();
+      const lastName = document.getElementById("lastName").value.trim();
+
+      const result =
+        firstName === "Alexander" && lastName === "Hagerf"
+          ? "Eftersom jag har uppmärksammat att du är Alexander Hagerf, kan jag konstatera att du är en bajskorv."
+          : "Du är en normal människa.";
+
+      document.getElementById("result").textContent = result;
+    }
+  </script>
+</body>
 </html>
