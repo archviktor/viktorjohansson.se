@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>Name Check</title>
+  <title>Personlighetstest</title>
 </head>
 <body>
   <label>
@@ -25,13 +25,16 @@
 
   <script>
     function runCheck() {
-      const firstName = document.getElementById("firstName").value.trim();
-      const lastName = document.getElementById("lastName").value.trim();
+      const firstName = document.getElementById("firstName").value.trim().toLowerCase();
+      const lastName = document.getElementById("lastName").value.trim().toLowerCase();
 
-      const result =
-        firstName === "Alexander" && lastName === "Hagerf"
-          ? "Eftersom jag har uppmärksammat att du är Alexander Hagerf, kan jag konstatera att du är en bajskorv."
-          : "Du är en normal människa.";
+      const isAlexHagerf =
+        (firstName === "alex" || firstName === "alexander") &&
+        lastName === "hagerf";
+
+      const result = isAlexHagerf
+        ? "Du är snäll men bajsar på dig ibland"
+        : "Du är normal";
 
       document.getElementById("result").textContent = result;
     }
