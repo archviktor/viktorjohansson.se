@@ -60,6 +60,12 @@
   <audio id="resultAudio" preload="auto"></audio>
 
   <script>
+    const ASSET_VERSION = "20260429-2";
+
+    function versioned(path) {
+      return path + "?v=" + encodeURIComponent(ASSET_VERSION);
+    }
+
     function runCheck() {
       const firstNameInput = document.getElementById("firstName");
       const firstName = firstNameInput.value.trim().toLowerCase();
@@ -80,15 +86,13 @@
       resultAudio.currentTime = 0;
 
       if (specialNames.includes(firstName)) {
-        resultImage.src = "images/banan.gif?ts=" + Date.now();
+        resultImage.src = versioned("images/banan.gif");
         resultImage.alt = "Specialbild";
 
-        resultAudio.src = "audio/banan.mp3";
-        resultAudio.play().catch(() => {
-          // Browser blocked playback despite user click.
-        });
+        resultAudio.src = versioned("audio/banan.mp3");
+        resultAudio.play().catch(() => {});
       } else {
-        resultImage.src = "images/annan.jpg";
+        resultImage.src = versioned("images/annan.jpg");
         resultImage.alt = "Standardbild";
         resultAudio.removeAttribute("src");
       }
