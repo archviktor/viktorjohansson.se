@@ -3,6 +3,22 @@
 <head>
   <meta charset="utf-8">
   <title>Personlighetstest</title>
+
+  <style>
+    body {
+      margin: 0;
+      padding: 16px;
+      box-sizing: border-box;
+      font-family: sans-serif;
+    }
+
+    #resultImage {
+      display: none;
+      width: 100%;
+      height: calc(100vh - 120px);
+      object-fit: contain;
+    }
+  </style>
 </head>
 <body>
   <label>
@@ -16,7 +32,7 @@
 
   <br><br>
 
-  <img id="resultImage" src="" alt="" style="display: none; max-width: 400px;">
+  <img id="resultImage" src="" alt="">
 
   <script>
     function runCheck() {
@@ -26,7 +42,7 @@
       const specialNames = ["jimmy", "philip", "henrik", "johan", "alexander"];
 
       if (specialNames.includes(firstName)) {
-        resultImage.src = "images/banan.jpg";   // samma bild för alla dessa namn
+        resultImage.src = "images/banan.jpg";
         resultImage.alt = "Specialbild";
       } else {
         resultImage.src = "images/annan.jpg";
