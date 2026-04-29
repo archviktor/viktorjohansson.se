@@ -60,7 +60,8 @@
   <audio id="resultAudio" preload="auto"></audio>
 
   <script>
-    const ASSET_VERSION = "20260429-3";
+    const ASSET_VERSION = "20260429-4";
+    const GIF_DURATION_MS = 5200;
 
     function versioned(path) {
       return path + "?v=" + encodeURIComponent(ASSET_VERSION) + "&t=" + Date.now();
@@ -103,6 +104,11 @@
         if (playPromise !== undefined) {
           playPromise.catch(() => {});
         }
+
+        setTimeout(() => {
+          const currentImage = document.getElementById("resultImage");
+          currentImage.src = versioned("images/banan-last-frame.jpg");
+        }, GIF_DURATION_MS);
       } else {
         const resultImage = document.getElementById("resultImage");
         resultImage.src = versioned("images/annan.jpg");
