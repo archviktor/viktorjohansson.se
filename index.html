@@ -1,42 +1,39 @@
 <!doctype html>
-<html lang="en">
+<html lang="sv">
 <head>
   <meta charset="utf-8">
   <title>Personlighetstest</title>
 </head>
 <body>
   <label>
-    First name:
+    Förnamn:
     <input id="firstName" type="text">
   </label>
 
   <br><br>
 
-  <label>
-    Last name:
-    <input id="lastName" type="text">
-  </label>
+  <button onclick="runCheck()">tryck här för att få vad du förtjänar</button>
 
   <br><br>
 
-  <button onclick="runCheck()">Run</button>
-
-  <p id="result"></p>
+  <img id="resultImage" src="" alt="" style="display: none; max-width: 400px;">
 
   <script>
     function runCheck() {
       const firstName = document.getElementById("firstName").value.trim().toLowerCase();
-      const lastName = document.getElementById("lastName").value.trim().toLowerCase();
+      const resultImage = document.getElementById("resultImage");
 
-      const isAlexHagerf =
-        (firstName === "alex" || firstName === "alexander") &&
-        lastName === "hagerf";
+      const specialNames = ["jimmy", "philip", "henrik", "johan"];
 
-      const result = isAlexHagerf
-        ? "Du är snäll men bajsar på dig ibland"
-        : "Du är normal";
+      if (specialNames.includes(firstName)) {
+        resultImage.src = "images/banan.jpg";   // samma bild för alla dessa namn
+        resultImage.alt = "Specialbild";
+      } else {
+        resultImage.src = "images/annan.jpg";
+        resultImage.alt = "Standardbild";
+      }
 
-      document.getElementById("result").textContent = result;
+      resultImage.style.display = "block";
     }
   </script>
 </body>
