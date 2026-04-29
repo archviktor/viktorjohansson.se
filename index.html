@@ -12,10 +12,15 @@
       font-family: sans-serif;
     }
 
+    input,
+    button {
+      font-size: 16px;
+    }
+
     #resultImage {
       display: none;
       width: 100%;
-      height: calc(100vh - 120px);
+      height: calc(100dvh - 120px);
       object-fit: contain;
     }
   </style>
@@ -36,6 +41,8 @@
 
   <script>
     function runCheck() {
+      document.activeElement.blur();
+
       const firstName = document.getElementById("firstName").value.trim().toLowerCase();
       const resultImage = document.getElementById("resultImage");
 
