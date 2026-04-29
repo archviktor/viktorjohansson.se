@@ -60,10 +60,10 @@
   <audio id="resultAudio" preload="auto"></audio>
 
   <script>
-    const ASSET_VERSION = "20260429-2";
+    const ASSET_VERSION = "20260429-3";
 
     function versioned(path) {
-      return path + "?v=" + encodeURIComponent(ASSET_VERSION);
+      return path + "?v=" + encodeURIComponent(ASSET_VERSION) + "&t=" + Date.now();
     }
 
     function runCheck() {
@@ -72,7 +72,6 @@
 
       const formPage = document.getElementById("formPage");
       const imagePage = document.getElementById("imagePage");
-      const resultImage = document.getElementById("resultImage");
       const resultAudio = document.getElementById("resultAudio");
 
       const specialNames = ["jimmy", "philip", "henrik", "johan", "alexander"];
@@ -84,17 +83,33 @@
 
       resultAudio.pause();
       resultAudio.currentTime = 0;
+      resultAudio.loop = false;
+      resultAudio.preload = "auto";
 
       if (specialNames.includes(firstName)) {
-        resultImage.src = versioned("images/banan.gif");
-        resultImage.alt = "Specialbild";
+        const oldImage = document.getElementById("resultImage");
+        const newImage = document.createElement("img");
+
+        newImage.id = "resultImage";
+        newImage.src = versioned("images/banan.gif");
+        newImage.alt = "Specialbild";
+
+        oldImage.replaceWith(newImage);
 
         resultAudio.src = versioned("audio/banan.mp3");
-        resultAudio.play().catch(() => {});
+        resultAudio.load();
+
+        const playPromise = resultAudio.play();
+        if (playPromise !== undefined) {
+          playPromise.catch(() => {});
+        }
       } else {
+        const resultImage = document.getElementById("resultImage");
         resultImage.src = versioned("images/annan.jpg");
         resultImage.alt = "Standardbild";
+
         resultAudio.removeAttribute("src");
+        resultAudio.load();
       }
     }
   </script>
