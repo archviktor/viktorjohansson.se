@@ -2,26 +2,27 @@
 <html lang="sv">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <title>Personlighetstest</title>
 
   <style>
-    html,
-    body {
+    html, body {
       margin: 0;
       width: 100%;
       min-height: 100%;
       font-family: sans-serif;
+      background: black;
     }
 
-    input,
-    button {
+    input, button {
       font-size: 16px;
     }
 
     #formPage {
       padding: 16px;
       box-sizing: border-box;
+      background: white;
+      min-height: 100dvh;
     }
 
     #imagePage {
@@ -56,6 +57,8 @@
     <img id="resultImage" src="" alt="">
   </main>
 
+  <audio id="resultAudio" preload="auto"></audio>
+
   <script>
     function runCheck() {
       const firstNameInput = document.getElementById("firstName");
@@ -64,21 +67,31 @@
       const formPage = document.getElementById("formPage");
       const imagePage = document.getElementById("imagePage");
       const resultImage = document.getElementById("resultImage");
+      const resultAudio = document.getElementById("resultAudio");
 
       const specialNames = ["jimmy", "philip", "henrik", "johan", "alexander"];
-
-      if (specialNames.includes(firstName)) {
-        resultImage.src = "images/banan.jpg";
-        resultImage.alt = "Specialbild";
-      } else {
-        resultImage.src = "images/annan.jpg";
-        resultImage.alt = "Standardbild";
-      }
 
       firstNameInput.blur();
       formPage.style.display = "none";
       imagePage.style.display = "block";
       window.scrollTo(0, 0);
+
+      resultAudio.pause();
+      resultAudio.currentTime = 0;
+
+      if (specialNames.includes(firstName)) {
+        resultImage.src = "images/banan.gif?ts=" + Date.now();
+        resultImage.alt = "Specialbild";
+
+        resultAudio.src = "audio/banan.mp3";
+        resultAudio.play().catch(() => {
+          // Browser blocked playback despite user click.
+        });
+      } else {
+        resultImage.src = "images/annan.jpg";
+        resultImage.alt = "Standardbild";
+        resultAudio.removeAttribute("src");
+      }
     }
   </script>
 </body>
