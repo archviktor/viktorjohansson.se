@@ -2,13 +2,15 @@
 <html lang="sv">
 <head>
   <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Personlighetstest</title>
 
   <style>
+    html,
     body {
       margin: 0;
-      padding: 16px;
-      box-sizing: border-box;
+      width: 100%;
+      min-height: 100%;
       font-family: sans-serif;
     }
 
@@ -17,33 +19,50 @@
       font-size: 16px;
     }
 
-    #resultImage {
+    #formPage {
+      padding: 16px;
+      box-sizing: border-box;
+    }
+
+    #imagePage {
       display: none;
-      width: 100%;
-      height: calc(100dvh - 120px);
+      width: 100vw;
+      height: 100dvh;
+      overflow: hidden;
+      background: black;
+    }
+
+    #resultImage {
+      width: 100vw;
+      height: 100dvh;
       object-fit: contain;
+      display: block;
     }
   </style>
 </head>
 <body>
-  <label>
-    Förnamn:
-    <input id="firstName" type="text">
-  </label>
+  <main id="formPage">
+    <label>
+      Förnamn:
+      <input id="firstName" type="text" autocomplete="given-name">
+    </label>
 
-  <br><br>
+    <br><br>
 
-  <button onclick="runCheck()">tryck här för att få vad du förtjänar</button>
+    <button onclick="runCheck()">tryck här för att få vad du förtjänar</button>
+  </main>
 
-  <br><br>
-
-  <img id="resultImage" src="" alt="">
+  <main id="imagePage">
+    <img id="resultImage" src="" alt="">
+  </main>
 
   <script>
     function runCheck() {
-      document.activeElement.blur();
+      const firstNameInput = document.getElementById("firstName");
+      const firstName = firstNameInput.value.trim().toLowerCase();
 
-      const firstName = document.getElementById("firstName").value.trim().toLowerCase();
+      const formPage = document.getElementById("formPage");
+      const imagePage = document.getElementById("imagePage");
       const resultImage = document.getElementById("resultImage");
 
       const specialNames = ["jimmy", "philip", "henrik", "johan", "alexander"];
@@ -56,7 +75,10 @@
         resultImage.alt = "Standardbild";
       }
 
-      resultImage.style.display = "block";
+      firstNameInput.blur();
+      formPage.style.display = "none";
+      imagePage.style.display = "block";
+      window.scrollTo(0, 0);
     }
   </script>
 </body>
